@@ -8,6 +8,7 @@ from src.core.result_models import MessageResult, TestRunResult
 from src.core.scenario import ScenarioConfig
 from src.senders.base_sender import BaseSender
 from src.senders.http_sender import HTTPSender
+from src.senders.websocket_sender import WebSocketSender
 
 
 class TestRunner:
@@ -17,6 +18,13 @@ class TestRunner:
     def create_sender(self, scenario: ScenarioConfig) -> BaseSender:
         if scenario.protocol == "http":
             return HTTPSender(
+                host=scenario.host,
+                port=scenario.port,
+                endpoint=scenario.endpoint_or_topic,
+            )
+
+        if scenario.protocol == "websocket":
+            return WebSocketSender(
                 host=scenario.host,
                 port=scenario.port,
                 endpoint=scenario.endpoint_or_topic,

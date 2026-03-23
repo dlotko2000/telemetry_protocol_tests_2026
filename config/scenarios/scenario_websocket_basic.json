@@ -1,0 +1,15 @@
+{
+  "scenario_id": "S2_WS",
+  "name": "Scenariusz - WebSocket test podstawowy",
+  "protocol": "websocket",
+  "host": "127.0.0.1",
+  "port": 8765,
+  "endpoint_or_topic": "/ws",
+  "message_count": 20,
+  "message_size": 256,
+  "interval_ms": 200,
+  "timeout_ms": 3000,
+  "repetitions": 3,
+  "concurrent_clients": 1,
+  "payload_type": "json"
+}
