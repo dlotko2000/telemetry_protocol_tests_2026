@@ -1,11 +1,18 @@
 import json
 import random
 import string
+import time
 
 
 class PayloadGenerator:
     @staticmethod
-    def generate(payload_type: str, size: int, message_id: int, scenario_id: str, run_number: int) -> str:
+    def generate(
+        payload_type: str,
+        size: int,
+        message_id: int,
+        scenario_id: str,
+        run_number: int
+    ) -> str:
         payload_type = payload_type.lower()
 
         if payload_type == "json":
@@ -15,7 +22,7 @@ class PayloadGenerator:
 
     @staticmethod
     def _generate_text(size: int, message_id: int, scenario_id: str, run_number: int) -> str:
-        header = f"{scenario_id}|run={run_number}|msg={message_id}|"
+        header = f"{scenario_id}|run={run_number}|msg={message_id}|ts={time.time()}|"
         body_size = max(0, size - len(header))
         body = "".join(random.choices(string.ascii_letters + string.digits, k=body_size))
         return header + body
@@ -26,10 +33,13 @@ class PayloadGenerator:
             "scenario_id": scenario_id,
             "run_number": run_number,
             "message_id": message_id,
+            "client_send_ts": time.time(),
             "payload": ""
         }
 
+        # najpierw liczony jest przybliżony rozmiar struktury
         raw = json.dumps(base, ensure_ascii=False)
         body_size = max(0, size - len(raw))
         base["payload"] = "".join(random.choices(string.ascii_letters + string.digits, k=body_size))
+
         return json.dumps(base, ensure_ascii=False)
