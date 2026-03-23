@@ -1,0 +1,15 @@
+{
+  "scenario_id": "S1_HTTP",
+  "name": "Scenariusz nr 1 - HTTP test podstawowy",
+  "protocol": "http",
+  "host": "127.0.0.1",
+  "port": 8000,
+  "endpoint_or_topic": "/telemetry",
+  "message_count": 10,
+  "message_size": 1028,
+  "interval_ms": 20,
+  "timeout_ms": 3000,
+  "repetitions": 3,
+  "concurrent_clients": 1,
+  "payload_type": "json"
+}
