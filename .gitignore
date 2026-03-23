@@ -214,3 +214,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+src/core/__pycache__/payload_generator.cpython-314.pyc
+src/core/__pycache__/result_models.cpython-314.pyc
+src/core/__pycache__/test_runner.cpython-314.pyc
