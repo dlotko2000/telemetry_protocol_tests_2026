@@ -1,6 +1,5 @@
 import json
 import threading
-import time
 from typing import Optional
 
 import paho.mqtt.client as mqtt
@@ -16,7 +15,9 @@ class MQTTSender(BaseSender):
         self.ack_topic = f"{topic}/ack"
         self.qos = qos
 
-        self.client = mqtt.Client()
+        # kompatybilność z paho-mqtt 2.x
+        self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
+
         self.client.on_connect = self._on_connect
         self.client.on_message = self._on_message
 
@@ -32,32 +33,25 @@ class MQTTSender(BaseSender):
         self.client.connect(self.host, self.port, keepalive=60)
         self.client.loop_start()
 
-        connected = self._connect_event.wait(timeout=5.0)
-        if not connected:
+        if not self._connect_event.wait(timeout=5):
             raise ConnectionError("MQTT connection timeout")
 
+        # SUBSCRIBE PRZED TESTEM
         self.client.subscribe(self.ack_topic, qos=self.qos)
 
     def disconnect(self) -> None:
-        try:
-            self.client.loop_stop()
-        finally:
-            self.client.disconnect()
-            self._connected = False
-            self._connect_event.clear()
+        self.client.loop_stop()
+        self.client.disconnect()
 
     def send_and_wait(self, payload: str, timeout_ms: int) -> dict:
         if not self._connected:
-            raise ConnectionError("MQTT connection is not established")
+            raise ConnectionError("MQTT not connected")
 
-        try:
-            payload_json = json.loads(payload)
-            message_id = payload_json.get("message_id")
-        except json.JSONDecodeError as e:
-            raise ValueError(f"MQTT payload must be valid JSON: {e}") from e
+        payload_json = json.loads(payload)
+        message_id = payload_json.get("message_id")
 
         if message_id is None:
-            raise ValueError("MQTT payload does not contain 'message_id'")
+            raise ValueError("Payload must contain message_id")
 
         with self._lock:
             self._pending_message_id = message_id
@@ -65,47 +59,44 @@ class MQTTSender(BaseSender):
             self._response_event.clear()
 
             result = self.client.publish(self.publish_topic, payload, qos=self.qos)
-            result.wait_for_publish()
 
             if result.rc != mqtt.MQTT_ERR_SUCCESS:
-                raise RuntimeError(f"MQTT publish failed with code: {result.rc}")
+                raise RuntimeError(f"Publish failed: {result.rc}")
 
-            timeout_s = timeout_ms / 1000.0
-            received = self._response_event.wait(timeout=timeout_s)
-
-            if not received:
-                raise TimeoutError(f"MQTT ACK timeout for message_id={message_id}")
+            if not self._response_event.wait(timeout=timeout_ms / 1000):
+                raise TimeoutError(f"MQTT ACK timeout (msg_id={message_id})")
 
             response = self._pending_response
-            if response is None:
-                raise RuntimeError("MQTT ACK event set but response is empty")
 
-            response_text = json.dumps(response, ensure_ascii=False)
+        response_text = json.dumps(response, ensure_ascii=False)
 
-            return {
-                "status": "success" if response.get("status") == "received" else "error",
-                "response_text": response_text,
-                "response_size": len(response_text.encode("utf-8")),
-                "http_status_code": None,
-                "response_json": response,
-            }
+        return {
+            "status": "success" if response.get("status") == "received" else "error",
+            "response_text": response_text,
+            "response_size": len(response_text.encode()),
+            "http_status_code": None,
+            "response_json": response,
+        }
+
+    # ---------- CALLBACKI ----------
 
     def _on_connect(self, client, userdata, flags, rc):
         if rc == 0:
+            print("MQTT sender connected")
             self._connected = True
             self._connect_event.set()
+        else:
+            print(f"MQTT connection failed: {rc}")
 
     def _on_message(self, client, userdata, msg):
         try:
-            payload = json.loads(msg.payload.decode("utf-8"))
+            payload = json.loads(msg.payload.decode())
         except Exception:
             return
 
         message_id = payload.get("message_id")
-        if message_id is None:
-            return
 
         with self._lock:
-            if self._pending_message_id == message_id:
+            if message_id == self._pending_message_id:
                 self._pending_response = payload
                 self._response_event.set()

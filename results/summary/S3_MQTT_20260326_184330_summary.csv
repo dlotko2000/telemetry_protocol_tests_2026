@@ -1,0 +1,4 @@
+scenario_id,protocol,run_number,start_time,end_time,duration_s,messages_sent,messages_received,messages_failed,success_rate,avg_latency_ms,min_latency_ms,max_latency_ms,throughput_msg_s,avg_cpu_percent_process,max_cpu_percent_process,avg_memory_rss_mb,max_memory_rss_mb,total_net_bytes_sent,total_net_bytes_recv
+S3_MQTT,mqtt,1,1774546815.8034735,1774546879.8243554,64.02088189125061,20,0,20,0.0,0.0,0.0,0.0,0.0,1.2886363636363636,96.5,41.140307934253244,41.26171875,130764,195775
+S3_MQTT,mqtt,2,1774546880.6497438,1774546944.6868846,64.03714084625244,20,0,20,0.0,0.0,0.0,0.0,0.0,1.0,15.0,41.225007584951456,41.23046875,4781538,656425065
+S3_MQTT,mqtt,3,1774546945.5128064,1774547009.538558,64.02575159072876,20,0,20,0.0,0.0,0.0,0.0,0.0,0.9,15.1,41.24240240695793,41.25,24375,101817
