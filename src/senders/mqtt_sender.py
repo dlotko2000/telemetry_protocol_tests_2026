@@ -24,6 +24,8 @@ class MQTTSender(BaseSender):
         self._connected = False
         self._connect_event = threading.Event()
 
+        self._pending_responses = {}
+
         self._pending_message_id: Optional[int] = None
         self._pending_response: Optional[dict] = None
         self._response_event = threading.Event()
@@ -49,25 +51,34 @@ class MQTTSender(BaseSender):
 
         payload_json = json.loads(payload)
         message_id = payload_json.get("message_id")
-        print(f"PUBLISHING message_id={message_id} TO {self.publish_topic}")
 
         if message_id is None:
             raise ValueError("Payload must contain message_id")
 
+        event = threading.Event()
+
         with self._lock:
-            self._pending_message_id = message_id
-            self._pending_response = None
-            self._response_event.clear()
+            self._pending_responses[message_id] = {
+                "event": event,
+                "response": None
+            }
 
-            result = self.client.publish(self.publish_topic, payload, qos=self.qos)
+        print(f"PUBLISHING message_id={message_id}")
 
-            if result.rc != mqtt.MQTT_ERR_SUCCESS:
-                raise RuntimeError(f"Publish failed: {result.rc}")
+        result = self.client.publish(self.publish_topic, payload, qos=self.qos)
 
-            if not self._response_event.wait(timeout=timeout_ms / 1000):
-                raise TimeoutError(f"MQTT ACK timeout (msg_id={message_id})")
+        if result.rc != mqtt.MQTT_ERR_SUCCESS:
+            raise RuntimeError(f"Publish failed: {result.rc}")
 
-            response = self._pending_response
+        if not event.wait(timeout=timeout_ms / 1000):
+            with self._lock:
+                self._pending_responses.pop(message_id, None)
+            raise TimeoutError(f"MQTT ACK timeout (msg_id={message_id})")
+
+        with self._lock:
+            data = self._pending_responses.pop(message_id)
+
+        response = data["response"]
 
         response_text = json.dumps(response, ensure_ascii=False)
 
@@ -77,7 +88,7 @@ class MQTTSender(BaseSender):
             "response_size": len(response_text.encode()),
             "http_status_code": None,
             "response_json": response,
-        }
+    }
 
     # ---------- CALLBACKI ----------
 
@@ -90,17 +101,21 @@ class MQTTSender(BaseSender):
             print(f"MQTT connection failed: {rc}")
 
     def _on_message(self, client, userdata, msg):
-        print("ACK RAW:", msg.topic, msg.payload.decode("utf-8", errors="replace"))
         try:
             payload = json.loads(msg.payload.decode())
-        except Exception as e:
-            print("ACK JSON ERROR:", e)
+        except Exception:
             return
 
         message_id = payload.get("message_id")
+
         print("ACK PARSED message_id:", message_id)
 
+        if message_id is None:
+            return
+
         with self._lock:
-            if message_id == self._pending_message_id:
-                self._pending_response = payload
-                self._response_event.set()
+            entry = self._pending_responses.get(message_id)
+
+            if entry:
+                entry["response"] = payload
+                entry["event"].set()
