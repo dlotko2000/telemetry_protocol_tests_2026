@@ -9,6 +9,7 @@ from src.core.scenario import ScenarioConfig
 from src.senders.base_sender import BaseSender
 from src.senders.http_sender import HTTPSender
 from src.senders.websocket_sender import WebSocketSender
+from src.senders.mqtt_sender import MQTTSender
 
 
 class TestRunner:
@@ -29,6 +30,14 @@ class TestRunner:
                 port=scenario.port,
                 endpoint=scenario.endpoint_or_topic,
             )
+
+        if scenario.protocol == "mqtt":
+            return MQTTSender(
+                host=scenario.host,
+                port=scenario.port,
+                topic=scenario.endpoint_or_topic,
+                qos=scenario.qos if scenario.qos is not None else 0,
+        )
 
         raise NotImplementedError(f"Protocol not implemented yet: {scenario.protocol}")
 
