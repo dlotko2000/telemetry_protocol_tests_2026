@@ -1,0 +1,16 @@
+{
+  "scenario_id": "S3_MQTT",
+  "name": "Scenariusz nr 3 - MQTT test podstawowy",
+  "protocol": "mqtt",
+  "host": "127.0.0.1",
+  "port": 1883,
+  "endpoint_or_topic": "telemetry/data",
+  "message_count": 20,
+  "message_size": 256,
+  "interval_ms": 200,
+  "timeout_ms": 3000,
+  "repetitions": 3,
+  "qos": 0,
+  "concurrent_clients": 1,
+  "payload_type": "json"
+}

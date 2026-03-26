@@ -2,7 +2,7 @@
   "scenario_id": "S1_HTTP",
   "name": "Scenariusz nr 1 - HTTP test podstawowy",
   "protocol": "http",
-  "host": "127.0.0.1",
+  "host": "localhost",
   "port": 8000,
   "endpoint_or_topic": "/telemetry",
   "message_count": 10,
