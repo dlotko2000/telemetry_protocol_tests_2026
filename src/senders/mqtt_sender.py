@@ -4,6 +4,7 @@ from typing import Optional
 
 import paho.mqtt.client as mqtt
 
+
 from src.senders.base_sender import BaseSender
 
 
@@ -16,7 +17,7 @@ class MQTTSender(BaseSender):
         self.qos = qos
 
         # kompatybilność z paho-mqtt 2.x
-        self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
+        self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1) # type: ignore[attr-defined]
 
         self.client.on_connect = self._on_connect
         self.client.on_message = self._on_message

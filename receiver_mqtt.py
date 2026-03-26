@@ -50,7 +50,7 @@ def on_message(client, userdata, msg):
 
 
 def main():
-    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1) # type: ignore[attr-defined]
 
     client.on_connect = on_connect
     client.on_message = on_message
