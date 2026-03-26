@@ -221,3 +221,4 @@ src/core/__pycache__/test_runner.cpython-314.pyc
 # Results csv
 results/raw/
 results/summary/
+results/charts/
