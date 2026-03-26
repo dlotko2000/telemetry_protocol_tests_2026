@@ -4,7 +4,7 @@ import time
 import paho.mqtt.client as mqtt
 
 
-BROKER_HOST = "127.0.0.1"
+BROKER_HOST = "localhost"
 BROKER_PORT = 1883
 
 DATA_TOPIC = "telemetry/data"
@@ -15,11 +15,13 @@ def on_connect(client, userdata, flags, rc):
     if rc == 0:
         print("MQTT receiver connected")
         client.subscribe(DATA_TOPIC)
+        print(f"Subscribed to topic: {DATA_TOPIC}")
     else:
         print(f"Connection failed: {rc}")
 
 
 def on_message(client, userdata, msg):
+    print("RAW RECEIVED:", msg.topic, msg.payload.decode("utf-8", errors="replace"))
     server_receive_ts = time.time()
 
     try:
@@ -27,7 +29,9 @@ def on_message(client, userdata, msg):
         message_id = payload.get("message_id")
         scenario_id = payload.get("scenario_id")
         run_number = payload.get("run_number")
-    except Exception:
+        print(f"PARSED message_id={message_id}, scenario_id={scenario_id}, run_number={run_number}")
+    except Exception as e:
+        print("JSON ERROR:", e)
         message_id = None
         scenario_id = None
         run_number = None
@@ -41,6 +45,7 @@ def on_message(client, userdata, msg):
         "server_send_ts": time.time(),
     }
 
+    print("SENDING ACK TO:", ACK_TOPIC, response)
     client.publish(ACK_TOPIC, json.dumps(response), qos=0)
 
 
