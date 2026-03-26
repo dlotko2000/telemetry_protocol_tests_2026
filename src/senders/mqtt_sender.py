@@ -36,7 +36,7 @@ class MQTTSender(BaseSender):
         if not self._connect_event.wait(timeout=5):
             raise ConnectionError("MQTT connection timeout")
 
-        # SUBSCRIBE PRZED TESTEM
+        print("SUBSCRIBING TO ACK TOPIC:", self.ack_topic)
         self.client.subscribe(self.ack_topic, qos=self.qos)
 
     def disconnect(self) -> None:
@@ -49,6 +49,7 @@ class MQTTSender(BaseSender):
 
         payload_json = json.loads(payload)
         message_id = payload_json.get("message_id")
+        print(f"PUBLISHING message_id={message_id} TO {self.publish_topic}")
 
         if message_id is None:
             raise ValueError("Payload must contain message_id")
@@ -89,12 +90,15 @@ class MQTTSender(BaseSender):
             print(f"MQTT connection failed: {rc}")
 
     def _on_message(self, client, userdata, msg):
+        print("ACK RAW:", msg.topic, msg.payload.decode("utf-8", errors="replace"))
         try:
             payload = json.loads(msg.payload.decode())
-        except Exception:
+        except Exception as e:
+            print("ACK JSON ERROR:", e)
             return
 
         message_id = payload.get("message_id")
+        print("ACK PARSED message_id:", message_id)
 
         with self._lock:
             if message_id == self._pending_message_id:
