@@ -214,9 +214,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
-src/core/__pycache__/payload_generator.cpython-314.pyc
-src/core/__pycache__/result_models.cpython-314.pyc
-src/core/__pycache__/test_runner.cpython-314.pyc
+src/core/__pycache__/
+src/senders/__pycache__/
+src/storage/__pycache__/
+src/senders/__pycache__/
 
 # Results csv
 results/raw/
