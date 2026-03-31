@@ -1,6 +1,6 @@
 {
-  "scenario_id": "S4_MQTT_16384B",
-  "name": "Scenariusz nr 4 - test wpływu rozmiaru wiadomości (16384 B)",
+  "scenario_id": "S4_MQTT_256B",
+  "name": "Scenariusz nr 4 - test wpływu rozmiaru wiadomości (256 B)",
   "protocol": "mqtt",
   "host": "10.10.10.169",
   "port": 1883,
@@ -8,13 +8,13 @@
   "execution_mode": "count",
   "message_count": 5000,
   "duration_s": null,
-  "message_size": 16384,
+  "message_size": 256,
   "interval_ms": 0,
   "target_rate_msg_s": null,
   "timeout_ms": 3000,
   "repetitions": 3,
   "payload_type": "json",
   "artificial_delay_ms": 0,
-  "qos": 1,
+  "qos": 0,
   "concurrent_clients": 1
 }

@@ -15,6 +15,6 @@
   "repetitions": 3,
   "payload_type": "json",
   "artificial_delay_ms": 0,
-  "qos": 1,
+  "qos": 0,
   "concurrent_clients": 1
 }

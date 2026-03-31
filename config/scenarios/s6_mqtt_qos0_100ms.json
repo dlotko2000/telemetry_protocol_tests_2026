@@ -1,10 +1,10 @@
 {
-  "scenario_id": "S6_WEBSOCKET",
-  "name": "Scenariusz nr 6 - test odporności na opóźnioną odpowiedź",
-  "protocol": "websocket",
+  "scenario_id": "S6_MQTT_100MS",
+  "name": "Scenariusz nr 6 - test odporności na opóźnioną odpowiedź (100 ms)",
+  "protocol": "mqtt",
   "host": "10.10.10.169",
-  "port": 8765,
-  "endpoint_or_topic": "/ws",
+  "port": 1883,
+  "endpoint_or_topic": "telemetry/data",
   "execution_mode": "count",
   "message_count": 300,
   "duration_s": null,
@@ -14,7 +14,7 @@
   "timeout_ms": 3000,
   "repetitions": 3,
   "payload_type": "json",
-  "artificial_delay_ms": 250,
-  "qos": null,
+  "artificial_delay_ms": 100,
+  "qos": 0,
   "concurrent_clients": 1
 }
