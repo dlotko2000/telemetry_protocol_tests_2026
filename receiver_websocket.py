@@ -7,21 +7,26 @@ from websockets.exceptions import ConnectionClosed
 
 
 async def handle_connection(websocket):
-    print("connection handler called")
-
     try:
         async for message in websocket:
             server_receive_ts = time.time()
+
+            artificial_delay_ms = 0
+            message_id = None
+            scenario_id = None
+            run_number = None
 
             try:
                 payload = json.loads(message)
                 message_id = payload.get("message_id")
                 scenario_id = payload.get("scenario_id")
                 run_number = payload.get("run_number")
+                artificial_delay_ms = int(payload.get("artificial_delay_ms", 0))
             except json.JSONDecodeError:
-                message_id = None
-                scenario_id = None
-                run_number = None
+                pass
+
+            if artificial_delay_ms > 0:
+                await asyncio.sleep(artificial_delay_ms / 1000.0)
 
             response = {
                 "status": "received",
@@ -31,6 +36,7 @@ async def handle_connection(websocket):
                 "server_receive_ts": server_receive_ts,
                 "server_send_ts": time.time(),
                 "payload_length": len(message.encode("utf-8")),
+                "artificial_delay_ms": artificial_delay_ms,
             }
 
             await websocket.send(json.dumps(response, ensure_ascii=False))
