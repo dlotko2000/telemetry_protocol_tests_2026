@@ -5,10 +5,13 @@ import time
 import websockets
 from websockets.exceptions import ConnectionClosed
 
+HOST = "10.10.10.169"
 
 async def handle_connection(websocket):
     try:
         async for message in websocket:
+            print(message)
+
             server_receive_ts = time.time()
 
             artificial_delay_ms = 0
@@ -46,8 +49,8 @@ async def handle_connection(websocket):
 
 
 async def main():
-    server = await websockets.serve(handle_connection, "0.0.0.0", 8765)
-    print("WebSocket receiver started on ws://0.0.0.0:8765/ws")
+    server = await websockets.serve(handle_connection, HOST, 8765)
+    print(f"WebSocket receiver started on ws://{HOST}:8765/ws")
     await server.wait_closed()
 
 
