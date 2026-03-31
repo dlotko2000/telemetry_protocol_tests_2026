@@ -5,11 +5,16 @@
   "host": "127.0.0.1",
   "port": 8765,
   "endpoint_or_topic": "/ws",
-  "message_count": 20,
-  "message_size": 256,
-  "interval_ms": 200,
+  "execution_mode": "count",
+  "message_count": 100,
+  "duration_s": null,
+  "message_size": 64,
+  "interval_ms": 0,
+  "target_rate_msg_s": null,
   "timeout_ms": 3000,
-  "repetitions": 3,
-  "concurrent_clients": 1,
-  "payload_type": "json"
+  "repetitions": 5,
+  "payload_type": "json",
+  "artificial_delay_ms": 0,
+  "qos": null,
+  "concurrent_clients": 1
 }
