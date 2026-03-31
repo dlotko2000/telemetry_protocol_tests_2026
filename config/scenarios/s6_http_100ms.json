@@ -1,12 +1,12 @@
 {
-  "scenario_id": "S2_WS",
-  "name": "Scenariusz - WebSocket test podstawowy",
-  "protocol": "websocket",
+  "scenario_id": "S6_HTTP_100MS",
+  "name": "Scenariusz nr 6 - test odporności na opóźnioną odpowiedź (100 ms)",
+  "protocol": "http",
   "host": "10.10.10.169",
-  "port": 8765,
-  "endpoint_or_topic": "/ws",
+  "port": 8000,
+  "endpoint_or_topic": "/telemetry",
   "execution_mode": "count",
-  "message_count": 100,
+  "message_count": 300,
   "duration_s": null,
   "message_size": 64,
   "interval_ms": 0,
@@ -14,7 +14,7 @@
   "timeout_ms": 3000,
   "repetitions": 3,
   "payload_type": "json",
-  "artificial_delay_ms": 0,
+  "artificial_delay_ms": 100,
   "qos": null,
   "concurrent_clients": 1
 }

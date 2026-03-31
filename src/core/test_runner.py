@@ -46,6 +46,7 @@ class TestRunner:
         all_summaries: List[TestRunResult] = []
 
         for run_number in range(1, scenario.repetitions + 1):
+            print(f'[{run_number}/{scenario.repetitions}] - repetitions')
             raw_results, summary = self.run_single_iteration(scenario, run_number)
             all_raw_results.extend(raw_results)
             all_summaries.append(summary)
@@ -108,6 +109,7 @@ class TestRunner:
             test_start_time=test_start_time,
             current_message_id=message_id,
         ):
+            
             self._wait_until_scheduled_time(
                 scenario=scenario,
                 next_send_time=next_send_time,
@@ -178,10 +180,13 @@ class TestRunner:
         current_message_id: int,
     ) -> bool:
         if scenario.execution_mode == "count":
+            print(f'{scenario.scenario_id} | {current_message_id}/{scenario.message_count} - message count')
             return scenario.message_count is not None and current_message_id <= scenario.message_count
 
         if scenario.execution_mode == "duration":
             elapsed = time.time() - test_start_time
+            if int(elapsed*1000) % 1000 == 0: print(f'{scenario.scenario_id} | {int(elapsed)}s - message duration')
+            
             return scenario.duration_s is not None and elapsed < scenario.duration_s
 
         return False
