@@ -180,12 +180,12 @@ class TestRunner:
         current_message_id: int,
     ) -> bool:
         if scenario.execution_mode == "count":
-            print(f'{current_message_id}/{scenario.message_count} - message count')
+            print(f'{scenario.scenario_id} | {current_message_id}/{scenario.message_count} - message count')
             return scenario.message_count is not None and current_message_id <= scenario.message_count
 
         if scenario.execution_mode == "duration":
             elapsed = time.time() - test_start_time
-            if int(elapsed*1000) % 1000 == 0: print(f'{int(elapsed)}s - message duration')
+            if int(elapsed*1000) % 1000 == 0: print(f'{scenario.scenario_id} | {int(elapsed)}s - message duration')
             
             return scenario.duration_s is not None and elapsed < scenario.duration_s
 
