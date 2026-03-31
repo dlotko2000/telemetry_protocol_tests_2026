@@ -1,0 +1,20 @@
+{
+  "scenario_id": "S4_WEBSOCKET_262144B",
+  "name": "Scenariusz nr 4 - test wpływu rozmiaru wiadomości (262144 B)",
+  "protocol": "websocket",
+  "host": "10.10.10.169",
+  "port": 8765,
+  "endpoint_or_topic": "/ws",
+  "execution_mode": "count",
+  "message_count": 5000,
+  "duration_s": null,
+  "message_size": 262144,
+  "interval_ms": 0,
+  "target_rate_msg_s": null,
+  "timeout_ms": 3000,
+  "repetitions": 3,
+  "payload_type": "json",
+  "artificial_delay_ms": 0,
+  "qos": null,
+  "concurrent_clients": 1
+}
