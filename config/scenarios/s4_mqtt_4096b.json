@@ -6,7 +6,7 @@
   "port": 1883,
   "endpoint_or_topic": "telemetry/data",
   "execution_mode": "count",
-  "message_count": 500,
+  "message_count": 5000,
   "duration_s": null,
   "message_size": 4096,
   "interval_ms": 0,
