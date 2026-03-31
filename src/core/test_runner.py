@@ -185,6 +185,8 @@ class TestRunner:
 
         if scenario.execution_mode == "duration":
             elapsed = time.time() - test_start_time
+            if int(elapsed*1000) % 1000 == 0: print(f'{int(elapsed)}s - message duration')
+            
             return scenario.duration_s is not None and elapsed < scenario.duration_s
 
         return False
