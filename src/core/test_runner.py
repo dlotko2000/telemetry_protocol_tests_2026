@@ -1,6 +1,8 @@
 import time
 from typing import List, Tuple
 
+import threading
+
 from src.core.metrics_collector import MetricsCollector
 from src.core.payload_generator import PayloadGenerator
 from src.core.result_models import MessageResult, TestRunResult
@@ -68,13 +70,28 @@ class TestRunner:
         start_time = time.time()
 
         try:
-            self._execute_loop(
-                sender=sender,
-                scenario=scenario,
-                run_number=run_number,
-                metrics=metrics,
-                test_start_time=start_time,
-            )
+            threads = []
+
+            for client_id in range(1, scenario.concurrent_clients + 1):
+                sender = self.create_sender(scenario)
+
+                t = threading.Thread(
+                    target=self._execute_loop,
+                    args=(
+                        sender,
+                        scenario,
+                        run_number,
+                        metrics,
+                        start_time,
+                        client_id, 
+                    ),
+                )
+                t.start()
+                threads.append(t)
+
+            for t in threads:
+                t.join()
+
         finally:
             end_time = time.time()
             monitor.stop()
@@ -100,6 +117,7 @@ class TestRunner:
         run_number: int,
         metrics: MetricsCollector,
         test_start_time: float,
+        client_id: int,
     ) -> None:
         message_id = 1
         next_send_time = test_start_time
@@ -121,6 +139,7 @@ class TestRunner:
                 message_id=message_id,
                 scenario_id=scenario.scenario_id,
                 run_number=run_number,
+                client_id=client_id,
                 artificial_delay_ms=scenario.artificial_delay_ms,
             )
 
@@ -144,6 +163,7 @@ class TestRunner:
                     response_size=response_data.get("response_size", 0),
                     http_status_code=response_data.get("http_status_code"),
                     error_message=None,
+                    client_id=client_id,
                 )
             except Exception as e:
                 receive_ts = time.time()
@@ -162,6 +182,7 @@ class TestRunner:
                     response_size=0,
                     http_status_code=None,
                     error_message=str(e),
+                    client_id=client_id,
                 )
 
             metrics.record_message_result(result)

@@ -1,17 +1,20 @@
 from typing import List
+import threading
 
 from src.core.result_models import MessageResult, TestRunResult
 
 
 class MetricsCollector:
     def __init__(self) -> None:
+        self._lock = threading.Lock()
         self.results: List[MessageResult] = []
 
     def reset(self) -> None:
         self.results = []
 
     def record_message_result(self, result: MessageResult) -> None:
-        self.results.append(result)
+        with self._lock:
+            self.results.append(result)
 
     def get_raw_results(self) -> List[MessageResult]:
         return self.results

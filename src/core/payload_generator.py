@@ -12,6 +12,7 @@ class PayloadGenerator:
         message_id: int,
         scenario_id: str,
         run_number: int,
+        client_id: int,
         artificial_delay_ms: int = 0,
     ) -> str:
         payload_type = payload_type.lower()
@@ -22,6 +23,7 @@ class PayloadGenerator:
                 message_id=message_id,
                 scenario_id=scenario_id,
                 run_number=run_number,
+                client_id=client_id,
                 artificial_delay_ms=artificial_delay_ms,
             )
 
@@ -56,12 +58,14 @@ class PayloadGenerator:
         scenario_id: str,
         run_number: int,
         artificial_delay_ms: int,
+        client_id: int,
     ) -> str:
         base = {
             "scenario_id": scenario_id,
             "run_number": run_number,
             "message_id": message_id,
             "client_send_ts": time.time(),
+            "client_id": client_id,
             "artificial_delay_ms": artificial_delay_ms,
             "payload": "",
         }

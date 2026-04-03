@@ -34,6 +34,7 @@ class MessageResult:
     protocol: str
     run_number: int
     message_id: int
+    client_id: int
     send_timestamp: float
     receive_timestamp: float
     latency_ms: float
