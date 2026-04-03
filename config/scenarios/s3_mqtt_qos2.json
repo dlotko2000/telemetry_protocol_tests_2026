@@ -1,0 +1,20 @@
+{
+  "scenario_id": "S3_MQTT",
+  "name": "Scenariusz nr 3 - test wysokiej intensywności transmisji",
+  "protocol": "mqtt",
+  "host": "10.10.10.169",
+  "port": 1883,
+  "endpoint_or_topic": "telemetry/data",
+  "execution_mode": "duration",
+  "message_count": null,
+  "duration_s": 60,
+  "message_size": 64,
+  "interval_ms": 0,
+  "target_rate_msg_s": null,
+  "timeout_ms": 3000,
+  "repetitions": 3,
+  "payload_type": "json",
+  "artificial_delay_ms": 0,
+  "qos": 2,
+  "concurrent_clients": 1
+}

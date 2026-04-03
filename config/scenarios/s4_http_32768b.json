@@ -1,6 +1,6 @@
 {
-  "scenario_id": "S4_HTTP_16384B",
-  "name": "Scenariusz nr 4 - test wpływu rozmiaru wiadomości (16384 B)",
+  "scenario_id": "S4_HTTP_32768B",
+  "name": "Scenariusz nr 4 - test wpływu rozmiaru wiadomości (32768 B)",
   "protocol": "http",
   "host": "10.10.10.169",
   "port": 8000,
@@ -8,7 +8,7 @@
   "execution_mode": "count",
   "message_count": 5000,
   "duration_s": null,
-  "message_size": 16384,
+  "message_size": 32768,
   "interval_ms": 0,
   "target_rate_msg_s": null,
   "timeout_ms": 3000,

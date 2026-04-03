@@ -18,6 +18,7 @@ async def handle_connection(websocket):
             message_id = None
             scenario_id = None
             run_number = None
+            client_id = None
 
             try:
                 payload = json.loads(message)
@@ -25,6 +26,7 @@ async def handle_connection(websocket):
                 scenario_id = payload.get("scenario_id")
                 run_number = payload.get("run_number")
                 artificial_delay_ms = int(payload.get("artificial_delay_ms", 0))
+                client_id = payload.get("client_id")
             except json.JSONDecodeError:
                 pass
 
@@ -40,6 +42,7 @@ async def handle_connection(websocket):
                 "server_send_ts": time.time(),
                 "payload_length": len(message.encode("utf-8")),
                 "artificial_delay_ms": artificial_delay_ms,
+                "client_id": client_id,
             }
 
             await websocket.send(json.dumps(response, ensure_ascii=False))

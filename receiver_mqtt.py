@@ -27,6 +27,7 @@ def on_message(client, userdata, msg):
     message_id = None
     scenario_id = None
     run_number = None
+    client_id = None
     payload_raw = msg.payload.decode("utf-8", errors="replace")
 
     try:
@@ -35,6 +36,7 @@ def on_message(client, userdata, msg):
         scenario_id = payload.get("scenario_id")
         run_number = payload.get("run_number")
         artificial_delay_ms = int(payload.get("artificial_delay_ms", 0))
+        client_id = payload.get("client_id")
     except Exception:
         pass
 
@@ -50,6 +52,7 @@ def on_message(client, userdata, msg):
         "server_send_ts": time.time(),
         "payload_length": len(payload_raw.encode("utf-8")),
         "artificial_delay_ms": artificial_delay_ms,
+        "client_id": client_id,
     }
 
     client.publish(ACK_TOPIC, json.dumps(response), qos=0)

@@ -1,10 +1,10 @@
 {
-  "scenario_id": "S6_HTTP",
-  "name": "Scenariusz nr 6 - test odporności na opóźnioną odpowiedź",
-  "protocol": "http",
+  "scenario_id": "S6_MQTT_250MS",
+  "name": "Scenariusz nr 6 - test odporności na opóźnioną odpowiedź (250 ms)",
+  "protocol": "mqtt",
   "host": "10.10.10.169",
-  "port": 8000,
-  "endpoint_or_topic": "/telemetry",
+  "port": 1883,
+  "endpoint_or_topic": "telemetry/data",
   "execution_mode": "count",
   "message_count": 300,
   "duration_s": null,
@@ -15,6 +15,6 @@
   "repetitions": 3,
   "payload_type": "json",
   "artificial_delay_ms": 250,
-  "qos": null,
+  "qos": 2,
   "concurrent_clients": 1
 }

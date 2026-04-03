@@ -1,10 +1,10 @@
 {
-  "scenario_id": "S1_HTTP",
+  "scenario_id": "S1_MQTT",
   "name": "Scenariusz nr 1 - test bazowy pojedynczej komunikacji",
-  "protocol": "http",
+  "protocol": "mqtt",
   "host": "10.10.10.169",
-  "port": 8000,
-  "endpoint_or_topic": "/telemetry",
+  "port": 1883,
+  "endpoint_or_topic": "telemetry/data",
   "execution_mode": "count",
   "message_count": 1000,
   "duration_s": null,
@@ -15,6 +15,6 @@
   "repetitions": 3,
   "payload_type": "json",
   "artificial_delay_ms": 0,
-  "qos": null,
+  "qos": 2,
   "concurrent_clients": 1
 }
