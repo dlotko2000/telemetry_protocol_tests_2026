@@ -11,7 +11,7 @@
   "message_size": 32768,
   "interval_ms": 0,
   "target_rate_msg_s": null,
-  "timeout_ms": 3000,
+  "timeout_ms": 1500,
   "repetitions": 3,
   "payload_type": "json",
   "artificial_delay_ms": 0,
