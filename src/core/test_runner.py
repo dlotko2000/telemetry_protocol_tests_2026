@@ -73,17 +73,14 @@ class TestRunner:
             threads = []
 
             for client_id in range(1, scenario.concurrent_clients + 1):
-                sender = self.create_sender(scenario)
-
                 t = threading.Thread(
                     target=self._execute_loop,
                     args=(
-                        sender,
                         scenario,
                         run_number,
                         metrics,
                         start_time,
-                        client_id, 
+                        client_id,
                     ),
                 )
                 t.start()
@@ -112,13 +109,15 @@ class TestRunner:
 
     def _execute_loop(
         self,
-        sender: BaseSender,
         scenario: ScenarioConfig,
         run_number: int,
         metrics: MetricsCollector,
         test_start_time: float,
         client_id: int,
     ) -> None:
+        sender = self.create_sender(scenario)
+        sender.connect()
+
         message_id = 1
         next_send_time = test_start_time
 
