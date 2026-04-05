@@ -1,5 +1,5 @@
 {
-  "scenario_id": "S5_MQTT_qos0",
+  "scenario_id": "S5_MQTT_q0",
   "name": "Scenariusz nr 5 - test długotrwałej stabilności",
   "protocol": "mqtt",
   "host": "10.10.10.169",

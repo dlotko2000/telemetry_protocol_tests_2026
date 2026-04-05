@@ -1,5 +1,5 @@
 {
-  "scenario_id": "S6_MQTT_100MS",
+  "scenario_id": "S6_MQTT_100MS_Q1",
   "name": "Scenariusz nr 6 - test odporności na opóźnioną odpowiedź (100 ms)",
   "protocol": "mqtt",
   "host": "10.10.10.169",

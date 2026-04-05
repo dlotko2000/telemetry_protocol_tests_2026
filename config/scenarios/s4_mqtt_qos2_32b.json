@@ -1,5 +1,5 @@
 {
-  "scenario_id": "S4_MQTT_32B",
+  "scenario_id": "S4_MQTT_32B_Q2",
   "name": "Scenariusz nr 4 - test wpływu rozmiaru wiadomości (32 B)",
   "protocol": "mqtt",
   "host": "10.10.10.169",

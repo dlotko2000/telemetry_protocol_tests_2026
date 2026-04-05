@@ -1,5 +1,5 @@
 {
-  "scenario_id": "S1_MQTT",
+  "scenario_id": "S1_MQTT_Q1",
   "name": "Scenariusz nr 1 - test bazowy pojedynczej komunikacji",
   "protocol": "mqtt",
   "host": "10.10.10.169",

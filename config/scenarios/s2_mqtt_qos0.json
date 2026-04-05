@@ -1,5 +1,5 @@
 {
-  "scenario_id": "S2_MQTT",
+  "scenario_id": "S2_MQTT_Q0",
   "name": "Scenariusz nr 2 - test sekwencyjnej serii wiadomości",
   "protocol": "mqtt",
   "host": "10.10.10.169",
