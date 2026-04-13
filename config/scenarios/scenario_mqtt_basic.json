@@ -5,16 +5,16 @@
   "host": "127.0.0.1",
   "port": 1883,
   "endpoint_or_topic": "telemetry/data",
-  "execution_mode": "count",
-  "message_count": 100,
-  "duration_s": null,
+  "execution_mode": "duration",
+  "message_count": null,
+  "duration_s": 60,
   "message_size": 64,
   "interval_ms": 0,
   "target_rate_msg_s": null,
-  "timeout_ms": 3000,
-  "repetitions": 5,
+  "timeout_ms": 1500,
+  "repetitions": 2,
   "payload_type": "json",
   "artificial_delay_ms": 0,
   "qos": null,
-  "concurrent_clients": 1
+  "concurrent_clients": 5
 }

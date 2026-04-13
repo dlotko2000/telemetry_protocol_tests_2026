@@ -292,7 +292,7 @@ Liczba równoległych klientów.
   "target_rate_msg_s": null,
   "interval_ms": 0,
 
-  "timeout_ms": 3000,
+  "timeout_ms": 1500,
   "repetitions": 3,
 
   "payload_type": "json",

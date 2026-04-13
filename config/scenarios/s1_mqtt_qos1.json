@@ -1,5 +1,5 @@
 {
-  "scenario_id": "S1_MQTT",
+  "scenario_id": "S1_MQTT_Q1",
   "name": "Scenariusz nr 1 - test bazowy pojedynczej komunikacji",
   "protocol": "mqtt",
   "host": "10.10.10.169",
@@ -11,7 +11,7 @@
   "message_size": 64,
   "interval_ms": 1000,
   "target_rate_msg_s": null,
-  "timeout_ms": 3000,
+  "timeout_ms": 1500,
   "repetitions": 3,
   "payload_type": "json",
   "artificial_delay_ms": 0,
