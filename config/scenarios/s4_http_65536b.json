@@ -1,5 +1,5 @@
 {
-  "scenario_id": "S4_HTTP_165536B",
+  "scenario_id": "S4_HTTP_65536B",
   "name": "Scenariusz nr 4 - test wpływu rozmiaru wiadomości (65536 B)",
   "protocol": "http",
   "host": "10.10.10.169",

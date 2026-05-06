@@ -1,0 +1,20 @@
+{
+  "scenario_id": "S7_20cli_WEBSOCKET",
+  "name": "Scenariusz nr 5 - test długotrwałej stabilności",
+  "protocol": "websocket",
+  "host": "10.10.10.169",
+  "port": 8765,
+  "endpoint_or_topic": "/ws",
+  "execution_mode": "duration",
+  "message_count": null,
+  "duration_s": 2400,
+  "message_size": 256,
+  "interval_ms": 0,
+  "target_rate_msg_s": 10,
+  "timeout_ms": 1500,
+  "repetitions": 3,
+  "payload_type": "json",
+  "artificial_delay_ms": 0,
+  "qos": null,
+  "concurrent_clients": 20
+}

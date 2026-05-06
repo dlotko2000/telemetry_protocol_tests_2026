@@ -137,4 +137,22 @@ python main.py run --scenario config/scenarios/scenario_doc.md
 python main.py run --scenario config/scenarios/scenario_http_basic.json
 python main.py run --scenario config/scenarios/scenario_mqtt_basic.json
 python main.py run --scenario config/scenarios/scenario_websocket_basic.json
+
+
+python main.py run --scenario config/scenarios/s7_cli5_http.json
+python main.py run --scenario config/scenarios/s7_cli5_mqtt_qos0.json
+python main.py run --scenario config/scenarios/s7_cli5_mqtt_qos1.json
+python main.py run --scenario config/scenarios/s7_cli5_mqtt_qos2.json
+python main.py run --scenario config/scenarios/s7_cli5_websocket.json
+python main.py run --scenario config/scenarios/s7_cli10_http.json
+python main.py run --scenario config/scenarios/s7_cli10_mqtt_qos0.json
+python main.py run --scenario config/scenarios/s7_cli10_mqtt_qos1.json
+python main.py run --scenario config/scenarios/s7_cli10_mqtt_qos2.json
+python main.py run --scenario config/scenarios/s7_cli10_websocket.json
+python main.py run --scenario config/scenarios/s7_cli20_http.json
+python main.py run --scenario config/scenarios/s7_cli20_mqtt_qos0.json
+python main.py run --scenario config/scenarios/s7_cli20_mqtt_qos1.json
+python main.py run --scenario config/scenarios/s7_cli20_mqtt_qos2.json
+python main.py run --scenario config/scenarios/s7_cli20_websocket.json
+
 ```
