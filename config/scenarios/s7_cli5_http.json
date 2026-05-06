@@ -2,7 +2,7 @@
   "scenario_id": "S7_5cli_HTTP",
   "name": "Scenariusz nr 5 - test długotrwałej stabilności",
   "protocol": "http",
-  "host": "10.10.10.169",
+  "host": "127.0.0.1",
   "port": 8000,
   "endpoint_or_topic": "/telemetry",
   "execution_mode": "duration",

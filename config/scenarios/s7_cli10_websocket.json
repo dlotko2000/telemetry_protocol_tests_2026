@@ -2,7 +2,7 @@
   "scenario_id": "S7_10cli_WEBSOCKET",
   "name": "Scenariusz nr 5 - test długotrwałej stabilności",
   "protocol": "websocket",
-  "host": "10.10.10.169",
+  "host": "127.0.0.1",
   "port": 8765,
   "endpoint_or_topic": "/ws",
   "execution_mode": "duration",

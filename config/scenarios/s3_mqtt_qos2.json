@@ -2,7 +2,7 @@
   "scenario_id": "S3_MQTT_Q2",
   "name": "Scenariusz nr 3 - test wysokiej intensywności transmisji",
   "protocol": "mqtt",
-  "host": "10.10.10.169",
+  "host": "127.0.0.1",
   "port": 1883,
   "endpoint_or_topic": "telemetry/data",
   "execution_mode": "duration",

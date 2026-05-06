@@ -2,7 +2,7 @@
   "scenario_id": "S2_WS",
   "name": "Scenariusz - WebSocket test podstawowy",
   "protocol": "websocket",
-  "host": "10.10.10.169",
+  "host": "127.0.0.1",
   "port": 8765,
   "endpoint_or_topic": "/ws",
   "execution_mode": "count",

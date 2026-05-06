@@ -2,7 +2,7 @@
   "scenario_id": "S4_WEBSOCKET_4096B",
   "name": "Scenariusz nr 4 - test wpływu rozmiaru wiadomości (4096 B)",
   "protocol": "websocket",
-  "host": "10.10.10.169",
+  "host": "127.0.0.1",
   "port": 8765,
   "endpoint_or_topic": "/ws",
   "execution_mode": "count",

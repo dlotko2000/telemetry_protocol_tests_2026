@@ -2,7 +2,7 @@
   "scenario_id": "S6_WEBSOCKET_250MS",
   "name": "Scenariusz nr 6 - test odporności na opóźnioną odpowiedź (250 ms)",
   "protocol": "websocket",
-  "host": "10.10.10.169",
+  "host": "127.0.0.1",
   "port": 8765,
   "endpoint_or_topic": "/ws",
   "execution_mode": "count",
